@@ -1,0 +1,11 @@
+{
+  "name": "react-contenteditable",
+  "version": "0.0.0",
+  "description": "React component representing a <div> with editable contents",
+  "main": "./index.js",
+  "dependencies": {
+    "react": ">=0.12"
+  },
+  "author": "Ophir LOJKINE (original code posted by Sebastien Lorber on stackoverflow)",
+  "license": "Apache"
+}
