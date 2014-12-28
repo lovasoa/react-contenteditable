@@ -1,6 +1,6 @@
 {
   "name": "react-contenteditable",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "React component representing a <div> with editable contents",
   "main": "./index.js",
   "dependencies": {
@@ -8,5 +8,6 @@
   },
   "author": "Ophir LOJKINE (original code posted by Sebastien Lorber on stackoverflow)",
   "license": "Apache",
-  "keywords": ["react-component", "contenteditable", "editable", "html", "react"]
+  "keywords": ["react-component", "contenteditable", "editable", "html", "react"],
+  "repository": {"type": "git", "url": "https://github.com/lovasoa/react-contenteditable.git"}
 }
