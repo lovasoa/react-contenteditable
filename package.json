@@ -7,5 +7,6 @@
     "react": ">=0.12"
   },
   "author": "Ophir LOJKINE (original code posted by Sebastien Lorber on stackoverflow)",
-  "license": "Apache"
+  "license": "Apache",
+  "keywords": ["react-component", "contenteditable", "editable", "html", "react"]
 }
