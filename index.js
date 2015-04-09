@@ -6,7 +6,7 @@ var ContentEditable = React.createClass({
             {...this.props}
             onInput={this.emitChange} 
             onBlur={this.emitChange}
-            contentEditable
+            contentEditable="true"
             dangerouslySetInnerHTML={{__html: this.props.html}}></div>;
     },
 
