@@ -3,8 +3,8 @@
   "version": "0.0.2",
   "description": "React component representing a <div> with editable contents",
   "main": "./index.js",
-  "dependencies": {
-    "react": ">=0.12"
+  "peerDependencies": {
+    "react": ">=0.13"
   },
   "author": "Ophir LOJKINE (original code posted by Sebastien Lorber on stackoverflow)",
   "license": "Apache",
