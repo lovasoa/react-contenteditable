@@ -24,3 +24,8 @@ React component for a div with editable contents
     }
   });
 ```
+
+## Structure of this repository
+ * `lib/` compiled javascript, usable directly in the browser
+ * `src/` source javascript. Uses JSX and ES6.
+
