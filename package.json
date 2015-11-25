@@ -1,13 +1,33 @@
 {
   "name": "react-contenteditable",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "React component representing a <div> with editable contents",
-  "main": "./index.js",
+  "main": "./lib/react-contenteditable.js",
   "peerDependencies": {
     "react": ">=0.13"
   },
   "author": "Ophir LOJKINE (original code posted by Sebastien Lorber on stackoverflow)",
   "license": "Apache",
-  "keywords": ["react-component", "contenteditable", "editable", "html", "react"],
-  "repository": {"type": "git", "url": "https://github.com/lovasoa/react-contenteditable.git"}
+  "keywords": [
+    "react-component",
+    "contenteditable",
+    "editable",
+    "html",
+    "react"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lovasoa/react-contenteditable.git"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.1.18",
+    "babel-plugin-transform-react-jsx": "^6.2.0"
+  },
+  "babel": {
+    "plugins": ["transform-react-jsx"]
+  },
+  "scripts": {
+    "compile": "babel -d lib/ src/",
+    "prepublish": "npm run compile"
+  }
 }

@@ -7,12 +7,11 @@ export default class ContentEditable extends React.Component {
   }
 
   render() {
-    const { disabled, ...props } = this.props;
     return <div
-      {...props}
+      {...this.props}
       onInput={this.emitChange}
       onBlur={this.emitChange}
-      contentEditable={!disabled}
+      contentEditable={!this.props.disabled}
       dangerouslySetInnerHTML={{__html: this.props.html}}></div>;
   }
 
