@@ -16,7 +16,11 @@ React component for a div with editable contents
     },
 
     render: function(){
-      return <ContentEditable html={this.state.html} onChange={this.handleChange}/>
+      return <ContentEditable
+                html={this.state.html} // innerHTML of the editable div
+                disabled={false}       // use true to disable edition
+                onChange={this.handleChange} // handle innerHTML change
+              />
     }
   });
 ```
