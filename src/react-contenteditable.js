@@ -15,7 +15,7 @@ export default class ContentEditable extends React.Component {
       dangerouslySetInnerHTML={{__html: this.props.html}}></div>;
   }
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate = (nextProps) {
     return nextProps.html !== React.findDOMNode(this).innerHTML;
   }
 

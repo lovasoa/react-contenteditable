@@ -1,6 +1,6 @@
 {
   "name": "react-contenteditable",
-  "version": "0.0.3",
+  "version": "0.0.2-1",
   "description": "React component representing a <div> with editable contents",
   "main": "./lib/react-contenteditable.js",
   "peerDependencies": {
@@ -21,10 +21,16 @@
   },
   "devDependencies": {
     "babel-cli": "^6.1.18",
-    "babel-plugin-transform-react-jsx": "^6.2.0"
+    "babel-plugin-transform-react-jsx": "^6.2.0",
+    "babel-preset-es2015": "^6.1.18"
   },
   "babel": {
-    "plugins": ["transform-react-jsx"]
+    "plugins": [
+      "transform-react-jsx"
+    ],
+    "presets": [
+      "es2015"
+    ]
   },
   "scripts": {
     "compile": "babel -d lib/ src/",
