@@ -26,6 +26,6 @@ React component for a div with editable contents
 ```
 
 ## Structure of this repository
- * `lib/` compiled javascript, usable directly in the browser
- * `src/` source javascript. Uses JSX and ES6.
+ * [`lib/`](https://github.com/lovasoa/react-contenteditable/tree/master/lib) compiled javascript, usable directly in the browser
+ * [`src/`](https://github.com/lovasoa/react-contenteditable/tree/master/src) source javascript. Uses JSX and ES6.
 
