@@ -9,6 +9,7 @@ export default class ContentEditable extends React.Component {
   render() {
     return <div
       {...this.props}
+      ref={(e) => this.htmlEl = e}
       onInput={this.emitChange}
       onBlur={this.emitChange}
       contentEditable={!this.props.disabled}
@@ -16,17 +17,18 @@ export default class ContentEditable extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.html !== React.findDOMNode(this).innerHTML;
+    return !this.htmlEl || nextProps.html !== this.htmlEl.innerHTML;
   }
 
   componentDidUpdate() {
-    if ( this.props.html !== React.findDOMNode(this).innerHTML ) {
-     React.findDOMNode(this).innerHTML = this.props.html;
+    if ( this.htmlEl && this.props.html !== this.htmlEl.innerHTML ) {
+     this.htmlEl.innerHTML = this.props.html;
     }
   }
 
   emitChange(evt) {
-    var html = React.findDOMNode(this).innerHTML;
+    if (!this.htmlEl) return;
+    var html = this.htmlEl.innerHTML;
     if (this.props.onChange && html !== this.lastHtml) {
       evt.target = { value: html };
       this.props.onChange(evt);
