@@ -1,19 +1,21 @@
 import React from 'react';
 
-export default class ContentEditable extends React.Component {
+class ContentEditable extends React.Component {
   constructor() {
     super();
     this.emitChange = this.emitChange.bind(this);
   }
 
   render() {
-    return <div
-      {...this.props}
-      ref={(e) => this.htmlEl = e}
-      onInput={this.emitChange}
-      onBlur={this.emitChange}
-      contentEditable={!this.props.disabled}
-      dangerouslySetInnerHTML={{__html: this.props.html}}></div>;
+    return React.createElement(
+      this.props.tagName || 'div',
+      Object.assign({}, this.props, {
+      ref: (e) => this.htmlEl = e,
+      onInput: this.emitChange,
+      onBlur: this.emitChange,
+      contentEditable: !this.props.disabled,
+      dangerouslySetInnerHTML: {__html: this.props.html}}),
+      this.props.children);
   }
 
   shouldComponentUpdate(nextProps) {
@@ -37,3 +39,5 @@ export default class ContentEditable extends React.Component {
     this.lastHtml = html;
   }
 }
+
+module.exports = ContentEditable;
