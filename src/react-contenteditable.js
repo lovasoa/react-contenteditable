@@ -38,6 +38,24 @@ export default class ContentEditable extends React.Component {
       // rerendering) thought that updating was not required. So we update the
       // element manually now.
       this.htmlEl.innerHTML = this.props.html;
+
+      this.checkForImplicitReformat()
+    }
+  }
+
+  componentDidMount() {
+    this.checkForImplicitReformat()
+  }
+
+  checkForImplicitReformat() {
+    // If DOM node is still different, it is because the browser decided to
+    // reformat our HTML. We treat this reformatting as an edit and signal a
+    // change, so it will not lead to an undesired rerender.
+    const finalInnerHtml = this.htmlEl.innerHTML;
+    if ( finalInnerHtml !== this.props.html ) {
+      // Structure like the normal event, so the application can read the html
+      // from evt.target.value as usual.
+      this.props.onChange({target: {value: finalInnerHtml}});
     }
   }
 
