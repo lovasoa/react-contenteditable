@@ -27,15 +27,27 @@ export default class ContentEditable extends React.Component {
   shouldComponentUpdate(nextProps) {
     // We need not rerender if the change of props simply reflects the user's
     // edits. Rerendering in this case would make the cursor/caret jump.
-    return (
-      // Rerender if there is no element yet... (somehow?)
-      !this.htmlEl
-      // ...or if html really changed... (programmatically, not by user edit)
-      || ( nextProps.html !== this.htmlEl.innerHTML
-        && nextProps.html !== this.props.html )
-      // ...or if editing is enabled or disabled.
-      || this.props.disabled !== nextProps.disabled
-    );
+
+    // Rerender if there is no element yet... (somehow?)
+    if (!this.htmlEl)
+      return true;
+    // ...or if editing is being enabled or disabled...
+    if (this.props.disabled !== nextProps.disabled)
+      return true;
+    // ...or if html is changed by application (unless we let user overrule).
+    if (nextProps.html !== this.htmlEl.innerHTML
+        && nextProps.html !== this.props.html) {
+      if (this.props.userIsKing) {
+        // Do not disturb if the user is editing now.
+        return (this.props.disabled || this.htmlEl !== document.activeElement);
+      }
+      else
+        return true;
+    }
+    // No need to update. The change in props was probably just the user's edit,
+    // so it is already reflected in the DOM. (note that React's virtual DOM may
+    // be out of sync with the real DOM now)
+    return false;
   }
 
   componentDidUpdate() {
