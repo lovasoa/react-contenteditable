@@ -31,7 +31,8 @@ export default class ContentEditable extends React.Component {
       // Rerender if there is no element yet... (somehow?)
       !this.htmlEl
       // ...or if html really changed... (programmatically, not by user edit)
-      || nextProps.html !== this.htmlEl.innerHTML
+      || ( nextProps.html !== this.htmlEl.innerHTML
+        && nextProps.html !== this.props.html )
       // ...or if editing is enabled or disabled.
       || this.props.disabled !== nextProps.disabled
     );
