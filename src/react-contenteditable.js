@@ -1,8 +1,10 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 export default class ContentEditable extends React.Component {
   constructor() {
     super();
+    this.autofocus = this.autofocus.bind(this);
     this.emitChange = this.emitChange.bind(this);
   }
 
@@ -28,6 +30,10 @@ export default class ContentEditable extends React.Component {
     if ( this.htmlEl && this.props.html !== this.htmlEl.innerHTML ) {
      this.htmlEl.innerHTML = this.props.html;
     }
+  }
+
+  autofocus() {
+    ReactDOM.findDOMNode(this).focus();
   }
 
   emitChange(evt) {
