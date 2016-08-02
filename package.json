@@ -23,7 +23,8 @@
     "babel-cli": ">=6",
     "babel-plugin-add-module-exports": ">=0",
     "babel-plugin-transform-object-assign": ">=6",
-    "babel-preset-es2015": ">=6"
+    "babel-preset-es2015": ">=6",
+    "react": "^15.2.1"
   },
   "babel": {
     "presets": [
