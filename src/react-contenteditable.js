@@ -7,7 +7,7 @@ export default class ContentEditable extends React.Component {
   }
 
   render() {
-    var { tagName, html, onChange, ...props } = this.props;
+    var { tagName, html, onChange, handleReturn, ...props } = this.props;
 
     return React.createElement(
       tagName || 'div',
@@ -33,6 +33,7 @@ export default class ContentEditable extends React.Component {
         && nextProps.html !== this.props.html )
       // ...or if editing is enabled or disabled.
       || this.props.disabled !== nextProps.disabled
+      || this.props.className !== nextProps.className
     );
   }
 
@@ -48,9 +49,12 @@ export default class ContentEditable extends React.Component {
     if (!this.htmlEl) return;
     var html = this.htmlEl.innerHTML;
     if (this.props.onChange && html !== this.lastHtml) {
-      evt.target = { value: html };
-      this.props.onChange(evt);
+      this.props.onChange(this._handleReturn(this.htmlEl));
     }
     this.lastHtml = html;
+  }
+
+  _handleReturn(refEle){
+    return this.props.handleReturn ? this.props.handleReturn(refEle) : refEle.innerHTML
   }
 }
