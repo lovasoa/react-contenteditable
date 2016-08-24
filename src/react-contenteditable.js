@@ -7,7 +7,7 @@ export default class ContentEditable extends React.Component {
   }
 
   render() {
-    var { tagName, html, onChange, ...props } = this.props;
+    var { tagName, html, onChange, pastePlain, ...props } = this.props;
 
     return React.createElement(
       tagName || 'div',
@@ -17,6 +17,7 @@ export default class ContentEditable extends React.Component {
         onInput: this.emitChange,
         onBlur: this.props.onBlur || this.emitChange,
         contentEditable: !this.props.disabled,
+        onPaste: pastePlain ? this.onPaste : undefined,
         dangerouslySetInnerHTML: {__html: html}
       },
       this.props.children);
@@ -52,5 +53,11 @@ export default class ContentEditable extends React.Component {
       this.props.onChange(evt);
     }
     this.lastHtml = html;
+  }
+
+  onPaste(evt){
+    evt.preventDefault();
+    var text = evt.clipboardData.getData('text/plain');
+    document.execCommand('insertHTML', false, text);
   }
 }
