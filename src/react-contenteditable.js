@@ -33,6 +33,8 @@ export default class ContentEditable extends React.Component {
         && nextProps.html !== this.props.html )
       // ...or if editing is enabled or disabled.
       || this.props.disabled !== nextProps.disabled
+      // ...or if className changed
+      || this.props.className !== nextProps.className
     );
   }
 
