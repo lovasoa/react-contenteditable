@@ -2,6 +2,10 @@ react-contenteditable
 =====================
 
 React component for a div with editable contents
+## Install
+```sh
+npm install react-contenteditable --save
+```
 
 ## Usage
 ```javascript
