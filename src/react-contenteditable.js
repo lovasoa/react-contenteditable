@@ -1,9 +1,10 @@
 import React from 'react';
 
 export default class ContentEditable extends React.Component {
-  constructor() {
+  constructor(props) {
     super();
     this.emitChange = this.emitChange.bind(this);
+    this.lastHtml = props.html;
   }
 
   render() {
