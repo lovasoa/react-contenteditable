@@ -4,10 +4,11 @@ export default class ContentEditable extends React.Component {
   constructor() {
     super();
     this.emitChange = this.emitChange.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
   render() {
-    var { tagName, html, onChange, ...props } = this.props;
+    var { tagName, html, onChange, isReset, onReset,...props } = this.props;
 
     return React.createElement(
       tagName || 'div',
@@ -52,5 +53,19 @@ export default class ContentEditable extends React.Component {
       this.props.onChange(evt);
     }
     this.lastHtml = html;
+  }
+
+  // Perhaps a reset method is useful.
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.isReset && nextProps.isReset === true){
+      this.reset();
+    }
+  }
+
+  reset() {
+    this.htmlEl.innerHTML = '';
+    if (this.props.onReset) {
+      this.props.onReset();
+    }
   }
 }
