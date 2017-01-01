@@ -1,8 +1,10 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 export default class ContentEditable extends React.Component {
   constructor() {
     super();
+    this.autofocus = this.autofocus.bind(this);
     this.emitChange = this.emitChange.bind(this);
   }
 
@@ -42,6 +44,10 @@ export default class ContentEditable extends React.Component {
       // rerendering) did not update the DOM. So we update it manually now.
       this.htmlEl.innerHTML = this.props.html;
     }
+  }
+
+  autofocus() {
+    ReactDOM.findDOMNode(this).focus();
   }
 
   emitChange(evt) {
