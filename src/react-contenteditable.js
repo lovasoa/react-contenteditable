@@ -1,11 +1,6 @@
 import React from 'react';
 
 export default class ContentEditable extends React.Component {
-  constructor() {
-    super();
-    this.emitChange = this.emitChange.bind(this);
-  }
-
   render() {
     var { tagName, html, ...props } = this.props;
 
@@ -13,13 +8,15 @@ export default class ContentEditable extends React.Component {
       tagName || 'div',
       {
         ...props,
-        ref: (e) => this.htmlEl = e,
+        ref: this.refEl,
+        ...(typeof tagName === 'function' ? { refEl: this.refEl } : {}),
         onInput: this.emitChange,
         onBlur: this.props.onBlur || this.emitChange,
         contentEditable: !this.props.disabled,
         dangerouslySetInnerHTML: {__html: html}
       },
-      this.props.children);
+      this.props.children
+    );
   }
 
   shouldComponentUpdate(nextProps) {
@@ -44,7 +41,7 @@ export default class ContentEditable extends React.Component {
     }
   }
 
-  emitChange(evt) {
+  emitChange = (evt) => {
     if (!this.htmlEl) return;
     var html = this.htmlEl.innerHTML;
     if (this.props.onChange && html !== this.lastHtml) {
@@ -53,4 +50,10 @@ export default class ContentEditable extends React.Component {
     }
     this.lastHtml = html;
   }
+
+  refEl = (el) => {
+    if (!this.htmlEl) {
+      this.htmlEl = el;
+    }
+  };
 }
