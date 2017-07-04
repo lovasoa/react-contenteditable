@@ -1,13 +1,13 @@
 {
   "name": "react-contenteditable",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "React component representing a <div> with editable contents",
   "main": "./lib/react-contenteditable.js",
   "peerDependencies": {
     "react": ">=0.13"
   },
   "author": "Ophir LOJKINE (original code posted by Sebastien Lorber on stackoverflow)",
-  "license": "Apache",
+  "license": " Apache-2.0",
   "keywords": [
     "react-component",
     "contenteditable",
