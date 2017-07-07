@@ -25,12 +25,19 @@ export default class ContentEditable extends React.Component {
   shouldComponentUpdate(nextProps) {
     // We need not rerender if the change of props simply reflects the user's
     // edits. Rerendering in this case would make the cursor/caret jump.
+    var updatedProgrammatically = this.htmlEl
+      && nextProps.html !== this.htmlEl.innerHTML
+      && nextProps.html !== this.props.html;
+
+    if (updatedProgrammatically) {
+      this.lastHtml = nextProps.html;
+    }
+
     return (
       // Rerender if there is no element yet... (somehow?)
       !this.htmlEl
       // ...or if html really changed... (programmatically, not by user edit)
-      || ( nextProps.html !== this.htmlEl.innerHTML
-        && nextProps.html !== this.props.html )
+      || updatedProgrammatically
       // ...or if editing is enabled or disabled.
       || this.props.disabled !== nextProps.disabled
       // ...or if className changed
