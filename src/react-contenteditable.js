@@ -35,6 +35,8 @@ export default class ContentEditable extends React.Component {
       || this.props.disabled !== nextProps.disabled
       // ...or if className changed
       || this.props.className !== nextProps.className
+      // ...or if tagName Changed
+      || this.props.tagName !== nextProps.tagName
     );
   }
 
