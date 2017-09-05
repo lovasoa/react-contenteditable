@@ -12,7 +12,10 @@ npm install react-contenteditable --save
   var ContentEditable = require("react-contenteditable");
   var MyComponent = React.createClass({
     getInitialState: function(){
-      return {html: "<b>Hello <i>World</i></b>"};
+      return {
+        placeholder: "<b>placeholder...</b>",
+        html: "<b>Hello <i>World</i></b>"
+      };
     },
 
     handleChange: function(evt){
@@ -22,6 +25,7 @@ npm install react-contenteditable --save
     render: function(){
       return <ContentEditable
                 html={this.state.html} // innerHTML of the editable div
+                placeholder={this.state.placeholder} // placeholder on the div
                 disabled={false}       // use true to disable edition
                 onChange={this.handleChange} // handle innerHTML change
               />
