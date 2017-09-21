@@ -38,7 +38,7 @@ export default class ContentEditable extends React.Component {
       return true;
     }
 
-    let optional = ['style', 'className', 'disable'];
+    let optional = ['style', 'className', 'disable', 'tagName'];
 
     // Handle additional properties
     return optional.some(name => props[name] !== nextProps[name]);
