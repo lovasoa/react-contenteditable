@@ -23,19 +23,25 @@ export default class ContentEditable extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    // We need not rerender if the change of props simply reflects the user's
-    // edits. Rerendering in this case would make the cursor/caret jump.
-    return (
-      // Rerender if there is no element yet... (somehow?)
-      !this.htmlEl
-      // ...or if html really changed... (programmatically, not by user edit)
-      || ( nextProps.html !== this.htmlEl.innerHTML
-        && nextProps.html !== this.props.html )
-      // ...or if editing is enabled or disabled.
-      || this.props.disabled !== nextProps.disabled
-      // ...or if className changed
-      || this.props.className !== nextProps.className
-    );
+    let { props, htmlEl } = this;
+
+    // We need not rerender if the change of props simply reflects the user's edits.
+    // Rerendering in this case would make the cursor/caret jump
+
+    // Rerender if there is no element yet... (somehow?)
+    if (!htmlEl) {
+      return true;
+    }
+
+    // ...or if html really changed... (programmatically, not by user edit)
+    if (nextProps.html !== htmlEl.innerHTML && nextProps.html !== props.html) {
+      return true;
+    }
+
+    let optional = ['style', 'className', 'disable', 'tagName'];
+
+    // Handle additional properties
+    return optional.some(name => props[name] !== nextProps[name]);
   }
 
   componentDidUpdate() {
