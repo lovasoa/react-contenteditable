@@ -1,13 +1,21 @@
 import React from 'react';
 
 export default class ContentEditable extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.html = '';
+    this.active = false;
     this.emitChange = this.emitChange.bind(this);
   }
 
   render() {
-    var { tagName, html, ...props } = this.props;
+    var { tagName, html, placeholder, ...props } = this.props;
+
+    if (placeholder !== undefined && html.trim().length <= 0 && !this.active) {
+      this.html = placeholder;
+    } else {
+      this.html = html;
+    }
 
     return React.createElement(
       tagName || 'div',
@@ -15,9 +23,25 @@ export default class ContentEditable extends React.Component {
         ...props,
         ref: (e) => this.htmlEl = e,
         onInput: this.emitChange,
-        onBlur: this.props.onBlur || this.emitChange,
+        onFocus: (evt) => {
+          this.active = true;
+          if (placeholder !== undefined && this.htmlEl.innerHTML === placeholder) {
+            this.html = html;
+            this.htmlEl.innerHTML = '';
+          }
+        },
+        onBlur: (evt) => {
+          this.active = false;
+          if (this.htmlEl.innerHTML.length === 0)
+            this.htmlEl.innerHTML = placeholder;
+          
+          if (this.props.onBlur)
+            this.props.onBlur(evt)
+          else 
+            this.emitChange(evt)
+        },
         contentEditable: !this.props.disabled,
-        dangerouslySetInnerHTML: {__html: html}
+        dangerouslySetInnerHTML: {__html: this.html}
       },
       this.props.children);
   }
