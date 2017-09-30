@@ -15,8 +15,8 @@ npm install react-contenteditable --save
       return {html: "<b>Hello <i>World</i></b>"};
     },
 
-    handleChange: function(evt){
-      this.setState({html: evt.target.value});
+    handleChange: function(value){
+      this.setState({html: value});
     },
 
     render: function(){
@@ -32,4 +32,3 @@ npm install react-contenteditable --save
 ## Structure of this repository
  * [`lib/`](https://github.com/lovasoa/react-contenteditable/tree/master/lib) compiled javascript, usable directly in the browser
  * [`src/`](https://github.com/lovasoa/react-contenteditable/tree/master/src) source javascript. Uses JSX and ES6.
-
