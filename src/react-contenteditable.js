@@ -1,5 +1,7 @@
 import React from 'react';
 
+let stripNbsp = str => str.replace(/&nbsp;|\u202F|\u00A0/g, ' ');
+
 export default class ContentEditable extends React.Component {
   constructor() {
     super();
@@ -34,7 +36,10 @@ export default class ContentEditable extends React.Component {
     }
 
     // ...or if html really changed... (programmatically, not by user edit)
-    if (nextProps.html !== htmlEl.innerHTML && nextProps.html !== props.html) {
+    if (
+      stripNbsp(nextProps.html) !== stripNbsp(htmlEl.innerHTML) &&
+      nextProps.html !== props.html
+    ) {
       return true;
     }
 
