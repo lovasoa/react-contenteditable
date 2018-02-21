@@ -1,5 +1,7 @@
 import React from 'react';
 
+const OBSERVER_CONFIG = { childList: true, subtree: true, characterData: true };
+
 export default class ContentEditable extends React.Component {
   constructor() {
     super();
@@ -14,12 +16,18 @@ export default class ContentEditable extends React.Component {
       {
         ...props,
         ref: (e) => this.htmlEl = e,
-        onInput: this.emitChange,
         onBlur: this.props.onBlur || this.emitChange,
         contentEditable: !this.props.disabled,
         dangerouslySetInnerHTML: {__html: html}
       },
       this.props.children);
+  }
+
+  componentDidMount() {
+    this.observer = new MutationObserver((mutations) => {
+      mutations.forEach(this.emitChange);
+    });
+    this.observer.observe(this.htmlEl, OBSERVER_CONFIG);
   }
 
   shouldComponentUpdate(nextProps) {
@@ -52,11 +60,15 @@ export default class ContentEditable extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.observer.disconnect();
+  }
+
   emitChange(evt) {
     if (!this.htmlEl) return;
     var html = this.htmlEl.innerHTML;
     if (this.props.onChange && html !== this.lastHtml) {
-      evt.target = { value: html };
+      evt.target.value = html;
       this.props.onChange(evt);
     }
     this.lastHtml = html;
