@@ -1,6 +1,6 @@
 import React from 'react';
 
-let stripNbsp = str => str.replace(/&nbsp;|\u202F|\u00A0/g, ' ');
+let stripNbsp = str => str && str.replace(/&nbsp;|\u202F|\u00A0/g, ' ');
 
 export default class ContentEditable extends React.Component {
   constructor() {
