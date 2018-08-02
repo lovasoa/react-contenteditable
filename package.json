@@ -1,6 +1,6 @@
 {
   "name": "react-contenteditable",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "React component representing a <div> with editable contents",
   "main": "./lib/react-contenteditable.js",
   "peerDependencies": {
