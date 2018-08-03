@@ -3,6 +3,8 @@ react-contenteditable
 
 React component for a div with editable contents
 
+[![Build Status](https://travis-ci.org/lovasoa/react-contenteditable.svg?branch=master)](https://travis-ci.org/lovasoa/react-contenteditable)
+
 ## Install
 
 ```sh
