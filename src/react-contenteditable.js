@@ -1,4 +1,5 @@
 import React from 'react';
+import deepEqual from 'fast-deep-equal';
 
 let stripNbsp = str => str && str.replace(/&nbsp;|\u202F|\u00A0/g, ' ');
 
@@ -43,10 +44,10 @@ export default class ContentEditable extends React.Component {
       return true;
     }
 
-    let optional = ['style', 'className', 'disabled', 'tagName'];
+    let propNames = ['style', 'className', 'disabled', 'tagName'];
 
     // Handle additional properties
-    return optional.some(name => props[name] !== nextProps[name]);
+    return !propNames.every(name => deepEqual(props[name],nextProps[name]));
   }
 
   componentDidUpdate() {

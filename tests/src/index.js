@@ -5,11 +5,13 @@ import ContentEditable from "./react-contenteditable.js";
 class EditComponent extends React.Component {
   constructor() {
     super();
-    this.state = {html: ""};
+    this.state = {html: "", props:{}};
   }
 
   getHtml = () => this.state.html;
   setHtml = html => this.setState({ html });
+
+  setProps = props => this.setState({ props });
 
   handleChange = evt => this.setHtml(evt.target.value);
 
@@ -18,6 +20,7 @@ class EditComponent extends React.Component {
       id="editableDiv"
       html={this.state.html}
       onChange={this.handleChange}
+      {...this.state.props}
     />;
   };
 }
