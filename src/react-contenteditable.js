@@ -11,6 +11,28 @@ export default class ContentEditable extends React.Component {
   render() {
     var { tagName, html, ...props } = this.props;
 
+    var contentEditableState = true;
+
+    if (this.props.plainTextOnly) {
+      contentEditableState = "plaintext-only"
+    }
+
+    if (this.props.typing) {
+      contentEditableState = "typing"
+    }
+
+    if (this.props.caret) {
+      contentEditableState = "caret"
+    }
+
+    if (this.props.events) {
+      contentEditableState = "events"
+    }
+
+    if (this.props.disabled) {
+      contentEditableState = false
+    }
+
     return React.createElement(
       tagName || 'div',
       {
@@ -18,7 +40,7 @@ export default class ContentEditable extends React.Component {
         ref: (e) => this.htmlEl = e,
         onInput: this.emitChange,
         onBlur: this.props.onBlur || this.emitChange,
-        contentEditable: !this.props.disabled,
+        contentEditable: contentEditableState,
         dangerouslySetInnerHTML: {__html: html}
       },
       this.props.children);
