@@ -37,6 +37,7 @@
   },
   "scripts": {
     "compile": "babel -d lib/ src/",
+    "test": "npm run compile && cd tests && npm install && npm test",
     "prepublish": "npm run compile"
   }
 }

@@ -1,0 +1,22 @@
+{
+  "name": "simple-rich-text-editor-in-react",
+  "version": "1.0.0",
+  "description": "Test editor that uses react-contenteditable",
+  "keywords": [],
+  "main": "src/index.js",
+  "dependencies": {
+    "react": "16.3.2",
+    "react-dom": "16.3.2",
+    "react-scripts": "1.1.4"
+  },
+  "devDependencies": {
+    "puppeteer": "^1.6.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "npm run build && react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "homepage": "."
+}
