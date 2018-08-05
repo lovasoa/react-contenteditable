@@ -5,7 +5,7 @@ import ContentEditable from "./react-contenteditable.js";
 class EditComponent extends React.Component {
   constructor() {
     super();
-    this.state = {html: "", props:{}};
+    this.state = { html: "", props: {} };
   }
 
   getHtml = () => this.state.html;
@@ -25,4 +25,4 @@ class EditComponent extends React.Component {
   };
 }
 
-window["editComponent"] = ReactDOM.render(<EditComponent/>, document.getElementById("root"));
+window["editComponent"] = ReactDOM.render(<EditComponent />, document.getElementById("root"));

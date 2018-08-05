@@ -20,7 +20,7 @@ export default class ContentEditable extends React.Component {
         onInput: this.emitChange,
         onBlur: this.props.onBlur || this.emitChange,
         contentEditable: !this.props.disabled,
-        dangerouslySetInnerHTML: {__html: html}
+        dangerouslySetInnerHTML: { __html: html }
       },
       this.props.children);
   }
@@ -47,11 +47,11 @@ export default class ContentEditable extends React.Component {
     let propNames = ['style', 'className', 'disabled', 'tagName'];
 
     // Handle additional properties
-    return !propNames.every(name => deepEqual(props[name],nextProps[name]));
+    return !propNames.every(name => deepEqual(props[name], nextProps[name]));
   }
 
   componentDidUpdate() {
-    if ( this.htmlEl && this.props.html !== this.htmlEl.innerHTML ) {
+    if (this.htmlEl && this.props.html !== this.htmlEl.innerHTML) {
       // Perhaps React (whose VDOM gets outdated because we often prevent
       // rerendering) did not update the DOM. So we update it manually now.
       this.htmlEl.innerHTML = this.props.html;
@@ -65,10 +65,10 @@ export default class ContentEditable extends React.Component {
     if (this.props.onChange && html !== this.lastHtml) {
       // Clone event with Object.assign to avoid 
       // "Cannot assign to read only property 'target' of object"
-      var evt = Object.assign({}, evt, { 
-        target: { 
-          value: html 
-        } 
+      var evt = Object.assign({}, evt, {
+        target: {
+          value: html
+        }
       });
       this.props.onChange(evt);
     }
