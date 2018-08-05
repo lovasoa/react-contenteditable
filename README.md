@@ -31,6 +31,7 @@ class MyComponent extends React.Component {
               html={this.state.html} // innerHTML of the editable div
               disabled={false}       // use true to disable edition
               onChange={this.handleChange} // handle innerHTML change
+              tagName='article' // Use a custom HTML tag (uses a div by default)
             />
   };
 };
