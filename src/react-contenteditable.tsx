@@ -1,11 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import deepEqual from 'fast-deep-equal';
+import PropTypes from 'prop-types';
 
-let stripNbsp = str => str && str.replace(/&nbsp;|\u202F|\u00A0/g, ' ');
 
-export default class ContentEditable extends React.Component {
-  constructor(props) {
+function normalizeHtml(str: string): string {
+  return str && str.replace(/&nbsp;|\u202F|\u00A0/g, ' ');
+}
+
+/**
+ * A simple component for an html element with editable contents.
+ */
+export default class ContentEditable extends React.Component<Props> {
+
+  lastHtml: string;
+  htmlEl: Element | null = null;
+
+  constructor(props: Props) {
     super();
     this.emitChange = this.emitChange.bind(this);
     this.lastHtml = props.html;
@@ -27,7 +37,7 @@ export default class ContentEditable extends React.Component {
       this.props.children);
   }
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps: Props): boolean {
     const { props, htmlEl } = this;
 
     // We need not rerender if the change of props simply reflects the user's edits.
@@ -40,16 +50,17 @@ export default class ContentEditable extends React.Component {
 
     // ...or if html really changed... (programmatically, not by user edit)
     if (
-      stripNbsp(nextProps.html) !== stripNbsp(htmlEl.innerHTML) &&
+      normalizeHtml(nextProps.html) !== normalizeHtml(htmlEl.innerHTML) &&
       nextProps.html !== props.html
     ) {
       return true;
     }
 
-    const propNames = ['style', 'className', 'disabled', 'tagName'];
-
     // Handle additional properties
-    return !propNames.every(name => deepEqual(props[name], nextProps[name]));
+    return props.disabled !== nextProps.disabled ||
+      props.tagName !== nextProps.tagName ||
+      props.className !== nextProps.className ||
+      !deepEqual(props.style, nextProps.style);
   }
 
   componentDidUpdate() {
@@ -60,13 +71,13 @@ export default class ContentEditable extends React.Component {
     }
   }
 
-  emitChange(evt) {
+  emitChange(originalEvt: React.SyntheticEvent<any>) {
     if (!this.htmlEl) return;
     const html = this.htmlEl.innerHTML;
     if (this.props.onChange && html !== this.lastHtml) {
       // Clone event with Object.assign to avoid 
       // "Cannot assign to read only property 'target' of object"
-      const evt = Object.assign({}, evt, {
+      const evt = Object.assign({}, originalEvt, {
         target: {
           value: html
         }
@@ -75,11 +86,24 @@ export default class ContentEditable extends React.Component {
     }
     this.lastHtml = html;
   }
+
+  static propTypes = {
+    html: PropTypes.string.isRequired,
+    onChange: PropTypes.func,
+    onBlur: PropTypes.func,
+    disabled: PropTypes.bool,
+    tagName: PropTypes.string,
+    className: PropTypes.string,
+    style: PropTypes.object
+  }
 }
 
-ContentEditable.propTypes = {
-  'html': PropTypes.string.isRequired,
-  'onChange': PropTypes.func,
-  'disabled': PropTypes.bool,
-  'tagName': PropTypes.string,
-};
+export interface Props {
+  html: string,
+  onChange?: Function,
+  onBlur?: Function,
+  disabled?: boolean,
+  tagName?: string,
+  className?: string,
+  style?: Object
+}
