@@ -6,6 +6,7 @@ class EditComponent extends React.Component {
   constructor() {
     super();
     this.state = { html: "", props: {} };
+    this.history = [];
   }
 
   getHtml = () => this.state.html;
@@ -13,7 +14,10 @@ class EditComponent extends React.Component {
 
   setProps = props => this.setState({ props });
 
-  handleChange = evt => this.setHtml(evt.target.value);
+  handleChange = evt => {
+    this.history.push(evt);
+    this.setHtml(evt.target.value);
+  }
 
   render = () => {
     return <ContentEditable

@@ -55,11 +55,31 @@ async function resetStyle(page) {
   expect(await getHtml(page)).toBe("ab");
 }
 
+async function initialOnChange(page, editComponent) {
+  // See: https://github.com/lovasoa/react-contenteditable/issues/42
+
+  // Initially, the onChange handler should not have been called a single time
+  expect(await editComponent('history.length')).toBe(0);
+
+  // Focus, the content-editable div
+  await page.focus("#editableDiv");
+
+  // The focus should not have triggered a change event
+  expect(await editComponent('history.length')).toBe(0);
+
+  // Blur the editable contents by pressing Tab
+  await page.keyboard.press("Tab");
+
+  // The blur should not have triggered a change event
+  expect(await editComponent('history.length')).toBe(0);
+}
+
 const testFuns = [
   initialState,
   textTyped,
   deleteRewrite,
-  resetStyle
+  resetStyle,
+  initialOnChange
 ];
 
 describe("react-contenteditable", async () => {
@@ -78,7 +98,8 @@ describe("react-contenteditable", async () => {
     test(testFun.name, async () => {
       await page.goto(testFile);
       await page.waitForSelector('#editableDiv');
-      await testFun(page);
+      const editComponent = f => page.evaluate('editComponent.' + f);
+      await testFun(page, editComponent);
     });
   }
 }, 16000);
