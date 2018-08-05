@@ -28,7 +28,7 @@
   "scripts": {
     "compile": "tsc",
     "test": "npm run compile && cd tests && npm install && npm test",
-    "prepublish": "npm run compile"
+    "prepare": "npm run compile"
   },
   "dependencies": {
     "@types/prop-types": "^15.5.4",
