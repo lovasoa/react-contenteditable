@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import deepEqual from 'fast-deep-equal';
 
 let stripNbsp = str => str && str.replace(/&nbsp;|\u202F|\u00A0/g, ' ');
@@ -75,3 +76,10 @@ export default class ContentEditable extends React.Component {
     this.lastHtml = html;
   }
 }
+
+ContentEditable.propTypes = {
+  'html': PropTypes.string.isRequired,
+  'onChange': PropTypes.func,
+  'disabled': PropTypes.bool,
+  'tagName': PropTypes.string,
+};
