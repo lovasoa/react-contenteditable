@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ContentEditable from "./react-contenteditable.js";
+import ContentEditable from "react-contenteditable";
 
 class EditComponent extends React.Component {
   constructor() {
