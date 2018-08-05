@@ -12,7 +12,7 @@ export default class ContentEditable extends React.Component {
   }
 
   render() {
-    var { tagName, html, ...props } = this.props;
+    const { tagName, html, ...props } = this.props;
 
     return React.createElement(
       tagName || 'div',
@@ -28,7 +28,7 @@ export default class ContentEditable extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    let { props, htmlEl } = this;
+    const { props, htmlEl } = this;
 
     // We need not rerender if the change of props simply reflects the user's edits.
     // Rerendering in this case would make the cursor/caret jump
@@ -46,7 +46,7 @@ export default class ContentEditable extends React.Component {
       return true;
     }
 
-    let propNames = ['style', 'className', 'disabled', 'tagName'];
+    const propNames = ['style', 'className', 'disabled', 'tagName'];
 
     // Handle additional properties
     return !propNames.every(name => deepEqual(props[name], nextProps[name]));
@@ -62,11 +62,11 @@ export default class ContentEditable extends React.Component {
 
   emitChange(evt) {
     if (!this.htmlEl) return;
-    var html = this.htmlEl.innerHTML;
+    const html = this.htmlEl.innerHTML;
     if (this.props.onChange && html !== this.lastHtml) {
       // Clone event with Object.assign to avoid 
       // "Cannot assign to read only property 'target' of object"
-      var evt = Object.assign({}, evt, {
+      const evt = Object.assign({}, evt, {
         target: {
           value: html
         }
