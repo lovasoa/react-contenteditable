@@ -1,6 +1,6 @@
 import * as React from 'react';
 import deepEqual from 'fast-deep-equal';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 
 
 function normalizeHtml(str: string): string {
