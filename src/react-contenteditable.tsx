@@ -7,6 +7,30 @@ function normalizeHtml(str: string): string {
   return str && str.replace(/&nbsp;|\u202F|\u00A0/g, ' ');
 }
 
+function findLastTextNode(node: Node) : Node | null {
+  if (node.nodeType === Node.TEXT_NODE) return node;
+  let children = node.childNodes;
+  for (let i = children.length-1; i>=0; i--) {
+    let textNode = findLastTextNode(children[i]);
+    if (textNode !== null) return textNode; 
+  }
+  return null;
+}
+
+function replaceCaret(htmlEl: Element) {
+  // Place the caret at the end of the element
+  let target = findLastTextNode(htmlEl);
+  if (target !== null && target.nodeValue !== null) {
+    var range = document.createRange();
+    var sel = window.getSelection();
+    range.setStart(target, target.nodeValue.length);
+    range.collapse(true);
+    sel.removeAllRanges();
+    sel.addRange(range);
+    if (htmlEl instanceof HTMLElement) htmlEl.focus();
+  }
+}
+
 /**
  * A simple component for an html element with editable contents.
  */
@@ -63,10 +87,13 @@ export default class ContentEditable extends React.Component<Props> {
   }
 
   componentDidUpdate() {
-    if (this.htmlEl && this.props.html !== this.htmlEl.innerHTML) {
+    if (this.htmlEl !== null) {
       // Perhaps React (whose VDOM gets outdated because we often prevent
       // rerendering) did not update the DOM. So we update it manually now.
-      this.htmlEl.innerHTML = this.lastHtml = this.props.html;
+      if (this.props.html !== this.htmlEl.innerHTML) {
+        this.htmlEl.innerHTML = this.lastHtml = this.props.html;
+      }
+      replaceCaret(this.htmlEl);
     }
   }
 
