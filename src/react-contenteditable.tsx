@@ -50,8 +50,7 @@ export default class ContentEditable extends React.Component<Props> {
 
     // ...or if html really changed... (programmatically, not by user edit)
     if (
-      normalizeHtml(nextProps.html) !== normalizeHtml(htmlEl.innerHTML) &&
-      nextProps.html !== props.html
+      normalizeHtml(nextProps.html) !== normalizeHtml(htmlEl.innerHTML)
     ) {
       return true;
     }
