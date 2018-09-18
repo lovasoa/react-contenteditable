@@ -41,5 +41,5 @@ class MyComponent extends React.Component {
 
 You can try **react-contenteditable** right from your browser to see if it fits your project's needs:
 
- * [Simple example](https://codesandbox.io/s/yqnkxx2qw1) : just an editable `<div>` with a default value. 
+ * [Simple example](https://codesandbox.io/s/qvwk483q26) : just an editable `<div>` with a default value. 
  * [Advanced example](https://codesandbox.io/s/n067mmwjym) : custom tag, input sanitization, and rich text edition. 
