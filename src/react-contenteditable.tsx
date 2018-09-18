@@ -16,7 +16,7 @@ export default class ContentEditable extends React.Component<Props> {
   htmlEl: Element | null = null;
 
   constructor(props: Props) {
-    super();
+    super(props);
     this.emitChange = this.emitChange.bind(this);
     this.lastHtml = props.html;
   }
