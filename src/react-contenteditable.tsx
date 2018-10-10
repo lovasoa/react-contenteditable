@@ -12,15 +12,17 @@ function findLastTextNode(node: Node) : Node | null {
   let children = node.childNodes;
   for (let i = children.length-1; i>=0; i--) {
     let textNode = findLastTextNode(children[i]);
-    if (textNode !== null) return textNode; 
+    if (textNode !== null) return textNode;
   }
   return null;
 }
 
 function replaceCaret(htmlEl: Element) {
   // Place the caret at the end of the element
-  let target = findLastTextNode(htmlEl);
-  if (target !== null && target.nodeValue !== null) {
+  const target = findLastTextNode(htmlEl);
+  // do not move caret if element was not focused
+  const isTargetFocused = document.activeElement === target;
+  if (target !== null && target.nodeValue !== null && isTargetFocused) {
     var range = document.createRange();
     var sel = window.getSelection();
     range.setStart(target, target.nodeValue.length);
@@ -101,7 +103,7 @@ export default class ContentEditable extends React.Component<Props> {
     if (!this.htmlEl) return;
     const html = this.htmlEl.innerHTML;
     if (this.props.onChange && html !== this.lastHtml) {
-      // Clone event with Object.assign to avoid 
+      // Clone event with Object.assign to avoid
       // "Cannot assign to read only property 'target' of object"
       const evt = Object.assign({}, originalEvt, {
         target: {
