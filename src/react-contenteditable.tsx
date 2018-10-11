@@ -138,5 +138,5 @@ export interface Props {
   tagName?: string,
   className?: string,
   style?: Object,
-  innerRef?: React.RefObject<HTMLDivElement>,
+  innerRef?: React.RefObject<Element>,
 }
