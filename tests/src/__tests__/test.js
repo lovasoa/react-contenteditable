@@ -72,12 +72,18 @@ async function initialOnChange(page, editComponent) {
   await expect(editComponent('history.length')).resolves.toBe(0);
 }
 
+async function createRef(page, editComponent) {
+  // We should know the element now
+  await expect(editComponent('el.current')).resolves.not.toBe(null);
+
+}
+
 const testFuns = [
   initialState,
   textTyped,
   deleteRewrite,
   resetStyle,
-  initialOnChange
+  initialOnChange,
 ];
 
 describe("react-contenteditable", async () => {
@@ -95,6 +101,17 @@ describe("react-contenteditable", async () => {
   for (let testFun of testFuns) {
     test(testFun.name, async () => {
       await page.goto(testFile);
+      await page.evaluate('render(false)');
+      await page.waitForSelector('#editableDiv');
+      const editComponent = f => page.evaluate('editComponent.' + f);
+      await testFun(page, editComponent);
+    });
+  }
+
+  for (let testFun of [...testFuns, createRef]) {
+    test('external ref ' + testFun.name, async () => {
+      await page.goto(testFile);
+      await page.evaluate('render(true)');
       await page.waitForSelector('#editableDiv');
       const editComponent = f => page.evaluate('editComponent.' + f);
       await testFun(page, editComponent);

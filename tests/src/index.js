@@ -8,6 +8,7 @@ class EditComponent extends React.Component {
     this.state = { html: "", props: {} };
     this.history = [];
     this.changeCallback = _ => {};
+    this.el = React.createRef();
   }
 
   getHtml = () => this.state.html;
@@ -29,9 +30,12 @@ class EditComponent extends React.Component {
       style={{"height": "300px", "border": "1px dashed"}}
       html={this.state.html}
       onChange={this.handleChange}
+      innerRef={this.props.useInnerRef && this.el}
       {...this.state.props}
     />;
   };
 }
 
-window["editComponent"] = ReactDOM.render(<EditComponent />, document.getElementById("root"));
+window["render"] = (useInnerRef) => {
+  window["editComponent"] = ReactDOM.render(<EditComponent useInnerRef={useInnerRef} />, document.getElementById("root"));
+}
