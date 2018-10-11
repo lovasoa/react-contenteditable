@@ -17,9 +17,9 @@ function findLastTextNode(node: Node) : Node | null {
   return null;
 }
 
-function replaceCaret(htmlEl: Element) {
+function replaceCaret(el: Element) {
   // Place the caret at the end of the element
-  const target = findLastTextNode(htmlEl);
+  const target = findLastTextNode(el);
   // do not move caret if element was not focused
   const isTargetFocused = document.activeElement === target;
   if (target !== null && target.nodeValue !== null && isTargetFocused) {
@@ -29,7 +29,7 @@ function replaceCaret(htmlEl: Element) {
     range.collapse(true);
     sel.removeAllRanges();
     sel.addRange(range);
-    if (htmlEl instanceof HTMLElement) htmlEl.focus();
+    if (el instanceof HTMLElement) el.focus();
   }
 }
 
@@ -47,14 +47,16 @@ export default class ContentEditable extends React.Component<Props> {
     this.lastHtml = props.html;
   }
 
+  getEl = () => (this.props.innerRef) ? this.props.innerRef.current : this.htmlEl;
+
   render() {
-    const { tagName, html, ...props } = this.props;
+    const { tagName, html, innerRef, ...props } = this.props;
 
     return React.createElement(
       tagName || 'div',
       {
         ...props,
-        ref: (e) => this.htmlEl = e,
+        ref: innerRef ? innerRef : (e => this.htmlEl = e),
         onInput: this.emitChange,
         onBlur: this.props.onBlur || this.emitChange,
         contentEditable: !this.props.disabled,
@@ -64,19 +66,18 @@ export default class ContentEditable extends React.Component<Props> {
   }
 
   shouldComponentUpdate(nextProps: Props): boolean {
-    const { props, htmlEl } = this;
+    const { props } = this;
+    const el = this.getEl();
 
     // We need not rerender if the change of props simply reflects the user's edits.
     // Rerendering in this case would make the cursor/caret jump
 
     // Rerender if there is no element yet... (somehow?)
-    if (!htmlEl) {
-      return true;
-    }
+    if (!el) return true;
 
     // ...or if html really changed... (programmatically, not by user edit)
     if (
-      normalizeHtml(nextProps.html) !== normalizeHtml(htmlEl.innerHTML)
+      normalizeHtml(nextProps.html) !== normalizeHtml(el.innerHTML)
     ) {
       return true;
     }
@@ -89,19 +90,22 @@ export default class ContentEditable extends React.Component<Props> {
   }
 
   componentDidUpdate() {
-    if (this.htmlEl !== null) {
-      // Perhaps React (whose VDOM gets outdated because we often prevent
-      // rerendering) did not update the DOM. So we update it manually now.
-      if (this.props.html !== this.htmlEl.innerHTML) {
-        this.htmlEl.innerHTML = this.lastHtml = this.props.html;
-      }
-      replaceCaret(this.htmlEl);
+    const el = this.getEl();
+    if (!el) return;
+
+    // Perhaps React (whose VDOM gets outdated because we often prevent
+    // rerendering) did not update the DOM. So we update it manually now.
+    if (this.props.html !== el.innerHTML) {
+      el.innerHTML = this.lastHtml = this.props.html;
     }
+    replaceCaret(el);
   }
 
   emitChange(originalEvt: React.SyntheticEvent<any>) {
-    if (!this.htmlEl) return;
-    const html = this.htmlEl.innerHTML;
+    const el = this.getEl();
+    if (!el) return;
+
+    const html = el.innerHTML;
     if (this.props.onChange && html !== this.lastHtml) {
       // Clone event with Object.assign to avoid
       // "Cannot assign to read only property 'target' of object"
@@ -133,5 +137,6 @@ export interface Props {
   disabled?: boolean,
   tagName?: string,
   className?: string,
-  style?: Object
+  style?: Object,
+  innerRef?: React.RefObject<HTMLDivElement>,
 }
