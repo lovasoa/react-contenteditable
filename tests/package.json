@@ -5,13 +5,14 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
-    "react": "16.3.2",
-    "react-dom": "16.3.2",
-    "react-scripts": "1.1.4",
-    "react-contenteditable": "file:../"
+    "ajv": "^6.5.4",
+    "react": "16",
+    "react-contenteditable": "file:../",
+    "react-dom": "16",
+    "react-scripts": "2.0.4"
   },
   "devDependencies": {
-    "puppeteer": "^1.6.2"
+    "puppeteer": "^1.9.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -19,5 +20,11 @@
     "test": "npm run build && react-scripts test",
     "eject": "react-scripts eject"
   },
-  "homepage": "."
+  "homepage": ".",
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
