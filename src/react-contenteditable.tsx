@@ -56,7 +56,7 @@ export default class ContentEditable extends React.Component<Props> {
       tagName || 'div',
       {
         ...props,
-        ref: innerRef ? innerRef : (e => this.htmlEl = e),
+        ref: innerRef || (e => this.htmlEl = e),
         onInput: this.emitChange,
         onBlur: this.props.onBlur || this.emitChange,
         contentEditable: !this.props.disabled,
@@ -126,7 +126,11 @@ export default class ContentEditable extends React.Component<Props> {
     disabled: PropTypes.bool,
     tagName: PropTypes.string,
     className: PropTypes.string,
-    style: PropTypes.object
+    style: PropTypes.object,
+    innerRef: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.func,
+    ])
   }
 }
 
