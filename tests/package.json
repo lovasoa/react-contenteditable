@@ -2,8 +2,13 @@
   "name": "simple-rich-text-editor-in-react",
   "version": "1.0.0",
   "description": "Test editor that uses react-contenteditable",
+  "license": " Apache-2.0",
   "keywords": [],
   "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lovasoa/react-contenteditable.git"
+  },
   "dependencies": {
     "ajv": "^6.5.4",
     "react": "16",
