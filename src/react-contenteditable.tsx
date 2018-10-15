@@ -2,7 +2,6 @@ import * as React from 'react';
 import deepEqual from 'fast-deep-equal';
 import * as PropTypes from 'prop-types';
 
-
 function normalizeHtml(str: string): string {
   return str && str.replace(/&nbsp;|\u202F|\u00A0/g, ' ');
 }
@@ -37,17 +36,10 @@ function replaceCaret(el: Element) {
  * A simple component for an html element with editable contents.
  */
 export default class ContentEditable extends React.Component<Props> {
+  lastHtml: string = this.props.html;
+  el = React.createElement();
 
-  lastHtml: string;
-  htmlEl: Element | null = null;
-
-  constructor(props: Props) {
-    super(props);
-    this.emitChange = this.emitChange.bind(this);
-    this.lastHtml = props.html;
-  }
-
-  getEl = () => (this.props.innerRef) ? this.props.innerRef.current : this.htmlEl;
+  getEl = () => (this.props.innerRef || this.el).current;
 
   render() {
     const { tagName, html, innerRef, ...props } = this.props;
@@ -56,7 +48,7 @@ export default class ContentEditable extends React.Component<Props> {
       tagName || 'div',
       {
         ...props,
-        ref: innerRef || (e => this.htmlEl = e),
+        ref: innerRef || this.el,
         onInput: this.emitChange,
         onBlur: this.props.onBlur || this.emitChange,
         contentEditable: !this.props.disabled,
@@ -102,7 +94,7 @@ export default class ContentEditable extends React.Component<Props> {
     replaceCaret(el);
   }
 
-  emitChange(originalEvt: React.SyntheticEvent<any>) {
+  emitChange = (originalEvt: React.SyntheticEvent<any>) => {
     const el = this.getEl();
     if (!el) return;
 
