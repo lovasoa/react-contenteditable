@@ -37,7 +37,7 @@ function replaceCaret(el: Element) {
  */
 export default class ContentEditable extends React.Component<Props> {
   lastHtml: string = this.props.html;
-  el = React.createElement();
+  el = React.createRef();
 
   getEl = () => (this.props.innerRef || this.el).current;
 
