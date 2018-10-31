@@ -16,7 +16,7 @@ function findLastTextNode(node: Node) : Node | null {
   return null;
 }
 
-function replaceCaret(el: Element) {
+function replaceCaret(el: HTMLElement) {
   // Place the caret at the end of the element
   const target = findLastTextNode(el);
   // do not move caret if element was not focused
@@ -37,7 +37,7 @@ function replaceCaret(el: Element) {
  */
 export default class ContentEditable extends React.Component<Props> {
   lastHtml: string = this.props.html;
-  el = React.createRef();
+  el = React.createRef<HTMLElement>();
 
   getEl = () => (this.props.innerRef || this.el).current;
 
@@ -135,5 +135,5 @@ export interface Props {
   tagName?: string,
   className?: string,
   style?: Object,
-  innerRef?: React.RefObject<Element>,
+  innerRef?: React.RefObject<HTMLElement>,
 }
