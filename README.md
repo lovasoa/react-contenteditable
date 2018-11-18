@@ -41,16 +41,15 @@ class MyComponent extends React.Component {
 ```
 
 ## Available props
-|prop|description|default|type|
-|--|----|--|----|
-|innerRef|element's `ref` attribute||Object \| Function|
-|html|**required:** innerHTML of the editable element||String|
-|disabled|use true to disable editing||Boolean|
-|onChange|handle innerHTML change||Function|
-|onBlur|handle innerHTML blur||Function|
-|className|||String|
-|defaultState|||String|
-|style|||Object|
+|prop|description|type|
+|--|----|----|
+|innerRef|element's [`ref` attribute](https://reactjs.org/docs/refs-and-the-dom.html)|Object \| Function|
+|html|**required:** innerHTML of the editable element|String|
+|disabled|use true to disable editing|Boolean|
+|onChange|called whenever `innerHTML` changes|Function|
+|onBlur|called whenever the html element is [blurred](https://developer.mozilla.org/en-US/docs/Web/Events/blur)|Function|
+|className|the element's [CSS class](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class)|String|
+|style|a collection of CSS properties to apply to the element|Object|
 
 
 ## Examples
