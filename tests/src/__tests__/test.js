@@ -53,6 +53,16 @@ async function resetStyle(page, editComponent) {
   await expectHtml(editComponent, "ab");
 }
 
+async function onChangeRef(page, editComponent) {
+
+  // set ref to function
+  await editComponent("setProps({ innerRef: () => {} })");
+
+  // type "a"
+  await page.type("#editableDiv", "a");
+  await expectHtml(editComponent, "a");
+}
+
 async function initialOnChange(page, editComponent) {
   // See: https://github.com/lovasoa/react-contenteditable/issues/42
 
@@ -84,6 +94,7 @@ const testFuns = [
   deleteRewrite,
   resetStyle,
   initialOnChange,
+  onChangeRef,
 ];
 
 describe("react-contenteditable", async () => {
