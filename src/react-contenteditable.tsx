@@ -53,6 +53,7 @@ export default class ContentEditable extends React.Component<Props> {
           this.el.current = current
         } : innerRef || this.el,
         onInput: this.emitChange,
+        onFocus: this.onFocus,
         onBlur: this.props.onBlur || this.emitChange,
         contentEditable: !this.props.disabled,
         dangerouslySetInnerHTML: { __html: html }
@@ -113,6 +114,15 @@ export default class ContentEditable extends React.Component<Props> {
       this.props.onChange(evt);
     }
     this.lastHtml = html;
+  }
+
+  onFocus = (originalEvt: React.SyntheticEvent<any>) => {
+    const el = this.getEl();
+    if (!el) return;
+
+    if (el.innerHTML === '') {
+      el.innerHTML = '<p><br /></p>';
+    }
   }
 
   static propTypes = {
