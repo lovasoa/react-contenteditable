@@ -20,7 +20,7 @@ function replaceCaret(el: HTMLElement) {
   // Place the caret at the end of the element
   const target = findLastTextNode(el);
   // do not move caret if element was not focused
-  const isTargetFocused = document.activeElement === target;
+  const isTargetFocused = document.activeElement === el;
   if (target !== null && target.nodeValue !== null && isTargetFocused) {
     var range = document.createRange();
     var sel = window.getSelection();
