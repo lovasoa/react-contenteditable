@@ -47,7 +47,9 @@ class MyComponent extends React.Component {
 |html|**required:** innerHTML of the editable element|String|
 |disabled|use true to disable editing|Boolean|
 |onChange|called whenever `innerHTML` changes|Function|
-|onBlur|called whenever the html element is [blurred](https://developer.mozilla.org/en-US/docs/Web/Events/blur)|Function|
+|onBlur|called whenever the html element is [blurred](https://developer.mozilla.org/en-US/docs/Web/Events/blur)|
+Function|
+|onKeyUp|called whenever releases a key|Function|
 |className|the element's [CSS class](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class)|String|
 |style|a collection of CSS properties to apply to the element|Object|
 
