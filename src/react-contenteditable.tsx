@@ -103,12 +103,14 @@ export default class ContentEditable extends React.Component<Props> {
     if (!el) return;
 
     const html = el.innerHTML;
+    const text = el.textContent || el.innerText;
     if (this.props.onChange && html !== this.lastHtml) {
       // Clone event with Object.assign to avoid
       // "Cannot assign to read only property 'target' of object"
       const evt = Object.assign({}, originalEvt, {
         target: {
-          value: html
+          value: html,
+          text: text
         }
       });
       this.props.onChange(evt);
