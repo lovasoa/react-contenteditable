@@ -54,6 +54,7 @@ export default class ContentEditable extends React.Component<Props> {
         } : innerRef || this.el,
         onInput: this.emitChange,
         onBlur: this.props.onBlur || this.emitChange,
+        onKeyUp: this.props.onKeyUp || this.emitChange,
         onKeyDown: this.props.onKeyDown || this.emitChange,
         contentEditable: !this.props.disabled,
         dangerouslySetInnerHTML: { __html: html }
@@ -120,6 +121,7 @@ export default class ContentEditable extends React.Component<Props> {
     html: PropTypes.string.isRequired,
     onChange: PropTypes.func,
     onBlur: PropTypes.func,
+    onKeyUp: PropTypes.func,
     onKeyDown:  PropTypes.func,
     disabled: PropTypes.bool,
     tagName: PropTypes.string,
@@ -136,6 +138,7 @@ export interface Props {
   html: string,
   onChange?: Function,
   onBlur?: Function,
+  onKeyUp?: Function,
   onKeyDown?: Function,
   disabled?: boolean,
   tagName?: string,
