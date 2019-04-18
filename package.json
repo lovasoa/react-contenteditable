@@ -31,7 +31,6 @@
     "prepare": "npm run compile"
   },
   "dependencies": {
-    "@types/prop-types": "^15.5.6",
-    "fast-deep-equal": "^2.0.1"
+    "@types/prop-types": "^15.5.6"
   }
 }

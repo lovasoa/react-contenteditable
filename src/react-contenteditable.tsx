@@ -1,5 +1,4 @@
 import * as React from 'react';
-import deepEqual from 'fast-deep-equal';
 import * as PropTypes from 'prop-types';
 
 function normalizeHtml(str: string): string {
@@ -35,7 +34,7 @@ function replaceCaret(el: HTMLElement) {
 /**
  * A simple component for an html element with editable contents.
  */
-export default class ContentEditable extends React.Component<Props> {
+export default class ContentEditable extends React.PureComponent<Props> {
   lastHtml: string = this.props.html;
   el: any = typeof this.props.innerRef === 'function' ? { current: null } : React.createRef<HTMLElement>();
 
@@ -60,31 +59,6 @@ export default class ContentEditable extends React.Component<Props> {
         dangerouslySetInnerHTML: { __html: html }
       },
       this.props.children);
-  }
-
-  shouldComponentUpdate(nextProps: Props): boolean {
-    const { props } = this;
-    const el = this.getEl();
-
-    // We need not rerender if the change of props simply reflects the user's edits.
-    // Rerendering in this case would make the cursor/caret jump
-
-    // Rerender if there is no element yet... (somehow?)
-    if (!el) return true;
-
-    // ...or if html really changed... (programmatically, not by user edit)
-    if (
-      normalizeHtml(nextProps.html) !== normalizeHtml(el.innerHTML)
-    ) {
-      return true;
-    }
-
-    // Handle additional properties
-    return props.disabled !== nextProps.disabled ||
-      props.tagName !== nextProps.tagName ||
-      props.className !== nextProps.className ||
-      props.innerRef !== nextProps.innerRef ||
-      !deepEqual(props.style, nextProps.style);
   }
 
   componentDidUpdate() {
