@@ -6,10 +6,10 @@ function normalizeHtml(str: string): string {
   return str && str.replace(/&nbsp;|\u202F|\u00A0/g, ' ');
 }
 
-function findLastTextNode(node: Node) : Node | null {
+function findLastTextNode(node: Node): Node | null {
   if (node.nodeType === Node.TEXT_NODE) return node;
   let children = node.childNodes;
-  for (let i = children.length-1; i>=0; i--) {
+  for (let i = children.length - 1; i >= 0; i--) {
     let textNode = findLastTextNode(children[i]);
     if (textNode !== null) return textNode;
   }
@@ -109,7 +109,8 @@ export default class ContentEditable extends React.Component<Props> {
       // "Cannot assign to read only property 'target' of object"
       const evt = Object.assign({}, originalEvt, {
         target: {
-          value: html
+          value: html,
+          textContent: el.textContent,
         }
       });
       this.props.onChange(evt);
@@ -122,7 +123,7 @@ export default class ContentEditable extends React.Component<Props> {
     onChange: PropTypes.func,
     onBlur: PropTypes.func,
     onKeyUp: PropTypes.func,
-    onKeyDown:  PropTypes.func,
+    onKeyDown: PropTypes.func,
     disabled: PropTypes.bool,
     tagName: PropTypes.string,
     className: PropTypes.string,
