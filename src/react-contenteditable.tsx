@@ -123,6 +123,7 @@ export default class ContentEditable extends React.Component<Props> {
     onBlur: PropTypes.func,
     onKeyUp: PropTypes.func,
     onKeyDown:  PropTypes.func,
+    placeholder: PropTypes.string,
     disabled: PropTypes.bool,
     tagName: PropTypes.string,
     className: PropTypes.string,
@@ -146,5 +147,6 @@ export interface Props {
   tagName?: string,
   className?: string,
   style?: Object,
+  placeholder?: string,
   innerRef?: React.RefObject<HTMLElement> | Function,
 }
