@@ -22,12 +22,14 @@ function replaceCaret(el: HTMLElement) {
   // do not move caret if element was not focused
   const isTargetFocused = document.activeElement === el;
   if (target !== null && target.nodeValue !== null && isTargetFocused) {
-    var range = document.createRange();
     var sel = window.getSelection();
-    range.setStart(target, target.nodeValue.length);
-    range.collapse(true);
-    sel.removeAllRanges();
-    sel.addRange(range);
+    if (sel !== null) {
+      var range = document.createRange();
+      range.setStart(target, target.nodeValue.length);
+      range.collapse(true);
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
     if (el instanceof HTMLElement) el.focus();
   }
 }
