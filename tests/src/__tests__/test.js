@@ -97,35 +97,29 @@ const testFuns = [
   onChangeRef,
 ];
 
-describe("react-contenteditable", async () => {
-  let browser, page;
+for (let useInnerRef of [false, true]) {
+  let namePart = (useInnerRef ? "with" : "without");
+  describe(`react-contenteditable ${namePart} external ref`, () => {
+    let browser, page;
 
-  beforeAll(async () => {
-    browser = await puppeteer.launch();
-    page = await browser.newPage();
-  });
-
-  afterAll(async () => {
-    browser.close();
-  });
-
-  for (let testFun of testFuns) {
-    test(testFun.name, async () => {
-      await page.goto(testFile);
-      await page.evaluate('render(false)');
-      await page.waitForSelector('#editableDiv');
-      const editComponent = f => page.evaluate('editComponent.' + f);
-      await testFun(page, editComponent);
+    beforeAll(async () => {
+      browser = await puppeteer.launch();
+      page = await browser.newPage();
     });
-  }
 
-  for (let testFun of [...testFuns, createRef]) {
-    test('external ref ' + testFun.name, async () => {
-      await page.goto(testFile);
-      await page.evaluate('render(true)');
-      await page.waitForSelector('#editableDiv');
-      const editComponent = f => page.evaluate('editComponent.' + f);
-      await testFun(page, editComponent);
+    afterAll(async () => {
+      browser.close();
     });
-  }
-}, 16000);
+
+    let funs = useInnerRef ? [...testFuns, createRef] : testFuns;
+    for (let testFun of funs) {
+      test(testFun.name, async () => {
+        await page.goto(testFile);
+        await page.evaluate(`render(${useInnerRef})`);
+        await page.waitForSelector('#editableDiv');
+        const editComponent = f => page.evaluate('editComponent.' + f);
+        await testFun(page, editComponent);
+      });
+    }
+  }, 16000);
+}
