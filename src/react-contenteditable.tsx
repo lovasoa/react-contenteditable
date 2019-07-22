@@ -6,10 +6,10 @@ function normalizeHtml(str: string): string {
   return str && str.replace(/&nbsp;|\u202F|\u00A0/g, ' ');
 }
 
-function findLastTextNode(node: Node) : Node | null {
+function findLastTextNode(node: Node): Node | null {
   if (node.nodeType === Node.TEXT_NODE) return node;
   let children = node.childNodes;
-  for (let i = children.length-1; i>=0; i--) {
+  for (let i = children.length - 1; i >= 0; i--) {
     let textNode = findLastTextNode(children[i]);
     if (textNode !== null) return textNode;
   }
@@ -122,9 +122,6 @@ export default class ContentEditable extends React.Component<Props> {
   static propTypes = {
     html: PropTypes.string.isRequired,
     onChange: PropTypes.func,
-    onBlur: PropTypes.func,
-    onKeyUp: PropTypes.func,
-    onKeyDown:  PropTypes.func,
     disabled: PropTypes.bool,
     tagName: PropTypes.string,
     className: PropTypes.string,
@@ -136,12 +133,12 @@ export default class ContentEditable extends React.Component<Props> {
   }
 }
 
-export interface Props {
+type ContentEditableEvent = React.SyntheticEvent<any, Event> & { target: { value: string } };
+type Modify<T, R> = Pick<T, Exclude<keyof T, keyof R>> & R;
+type DivProps = Modify<JSX.IntrinsicElements["div"], { onChange: ((event: ContentEditableEvent) => void) }>;
+
+export interface Props extends DivProps {
   html: string,
-  onChange?: Function,
-  onBlur?: Function,
-  onKeyUp?: Function,
-  onKeyDown?: Function,
   disabled?: boolean,
   tagName?: string,
   className?: string,
