@@ -4,6 +4,10 @@ react-contenteditable
 React component for a div with editable contents
 
 [![Build Status](https://travis-ci.org/lovasoa/react-contenteditable.svg?branch=master)](https://travis-ci.org/lovasoa/react-contenteditable)
+[![download count](https://img.shields.io/npm/dm/react-contenteditable.svg)](https://www.npmjs.com/package/react-contenteditable)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/react-contenteditable.svg)](https://www.npmjs.com/package/react-contenteditable)
+[![license](https://img.shields.io/github/license/lovasoa/react-contenteditable.svg)](https://github.com/lovasoa/react-contenteditable/blob/master/LICENSE)
+
 
 ## Install
 
