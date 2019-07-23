@@ -133,7 +133,7 @@ export default class ContentEditable extends React.Component<Props> {
   }
 }
 
-type ContentEditableEvent = React.SyntheticEvent<any, Event> & { target: { value: string } };
+export type ContentEditableEvent = React.SyntheticEvent<any, Event> & { target: { value: string } };
 type Modify<T, R> = Pick<T, Exclude<keyof T, keyof R>> & R;
 type DivProps = Modify<JSX.IntrinsicElements["div"], { onChange: ((event: ContentEditableEvent) => void) }>;
 
