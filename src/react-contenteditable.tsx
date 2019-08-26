@@ -123,7 +123,7 @@ export default class ContentEditable extends React.Component<Props> {
     html: PropTypes.string.isRequired,
     onChange: PropTypes.func,
     disabled: PropTypes.bool,
-    tagName: PropTypes.string,
+    tagName: PropTypes.oneOfType([PropTypes.string, PropTypes.elementType]),
     className: PropTypes.string,
     style: PropTypes.object,
     innerRef: PropTypes.oneOfType([
@@ -140,7 +140,7 @@ type DivProps = Modify<JSX.IntrinsicElements["div"], { onChange: ((event: Conten
 export interface Props extends DivProps {
   html: string,
   disabled?: boolean,
-  tagName?: string,
+  tagName?: string | React.ComponentType<any>,
   className?: string,
   style?: Object,
   innerRef?: React.RefObject<HTMLElement> | Function,
