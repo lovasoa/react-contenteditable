@@ -38,7 +38,7 @@ class MyComponent extends React.Component {
               html={this.state.html} // innerHTML of the editable div
               disabled={false}       // use true to disable editing
               onChange={this.handleChange} // handle innerHTML change
-              tagName='article' // Use a custom HTML tag (uses a div by default)
+              tagName='article' // Use a custom HTML tag or a React component (uses a div by default)
             />
   };
 };
@@ -54,6 +54,7 @@ class MyComponent extends React.Component {
 |onBlur|called whenever the html element is [blurred](https://developer.mozilla.org/en-US/docs/Web/Events/blur)|Function|
 |onKeyUp|called whenever a key is released|Function|
 |onKeyDown|called whenever a key is pressed |Function|
+|tagName|custom HTML tag or a React component |String or React.ComponentType|
 |className|the element's [CSS class](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class)|String|
 |style|a collection of CSS properties to apply to the element|Object|
 
