@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import ContentEditable from "react-contenteditable";
 
-type Props = { useInnerRef: boolean };
+type Props = { useInnerRef: boolean, tagName?: string | React.ComponentType<any> };
 type State = { html: string, props: {} };
 type RCEvent = { target: { value: string } };
 
@@ -12,7 +12,7 @@ class EditComponent extends React.Component<Props, State> {
   el: React.RefObject<HTMLElement>;
 
   constructor() {
-    super({ useInnerRef: false });
+    super({ useInnerRef: false, tagName: "div" });
     this.state = { html: "", props: {} };
     this.history = [];
     this.changeCallback = _ => { };
@@ -44,9 +44,15 @@ class EditComponent extends React.Component<Props, State> {
   };
 }
 
-(window as any)["render"] = (useInnerRef: boolean) => {
+(window as any)["render"] = ({
+  useInnerRef,
+  tagName
+}: {
+  useInnerRef: boolean,
+  tagName?: string | React.ComponentType<any>
+}) => {
   (window as any)["editComponent"] = ReactDOM.render(
-    <EditComponent useInnerRef={useInnerRef} />,
+    <EditComponent useInnerRef={useInnerRef} tagName={tagName} />,
     document.getElementById("root")
   );
 }

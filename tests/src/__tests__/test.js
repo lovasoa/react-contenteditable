@@ -115,7 +115,35 @@ for (let useInnerRef of [false, true]) {
     for (let testFun of funs) {
       test(testFun.name, async () => {
         await page.goto(testFile);
-        await page.evaluate(`render(${useInnerRef})`);
+        await page.evaluate(`render({useInnerRef: ${useInnerRef}})`);
+        await page.waitForSelector('#editableDiv');
+        const editComponent = f => page.evaluate('editComponent.' + f);
+        await testFun(page, editComponent);
+      });
+    }
+  }, 16000);
+}
+
+const MyComponent = () => React.createElement("div", {className: "MyComponent"});
+
+for (let tagName of [`"div"`, `"section"`, MyComponent]) {
+  let namePart = (tagName ? "with" : "without");
+  describe(`react-contenteditable ${namePart} tagName`, () => {
+    let browser, page;
+
+    beforeAll(async () => {
+      browser = await puppeteer.launch();
+      page = await browser.newPage();
+    });
+
+    afterAll(async () => {
+      browser.close();
+    });
+
+    for (let testFun of testFuns) {
+      test(testFun.name, async () => {
+        await page.goto(testFile);
+        await page.evaluate(`render({tagName: ${tagName}})`);
         await page.waitForSelector('#editableDiv');
         const editComponent = f => page.evaluate('editComponent.' + f);
         await testFun(page, editComponent);
