@@ -39,21 +39,23 @@ function replaceCaret(el: HTMLElement) {
  */
 export default class ContentEditable extends React.Component<Props> {
   lastHtml: string = this.props.html;
-  el: any = typeof this.props.innerRef === 'function' ? { current: null } : React.createRef<HTMLElement>();
+  el: any;
 
-  getEl = () => (this.props.innerRef && typeof this.props.innerRef !== 'function' ? this.props.innerRef : this.el).current;
+  handleRef = (el: HTMLElement) => {
+    this.el = el;
+    if (typeof this.props.innerRef === 'function') {
+      this.props.innerRef(el);
+    }
+  };
 
   render() {
-    const { tagName, html, innerRef, ...props } = this.props;
+    const { tagName, html, ...props } = this.props;
 
     return React.createElement(
       tagName || 'div',
       {
         ...props,
-        ref: typeof innerRef === 'function' ? (current: HTMLElement) => {
-          innerRef(current)
-          this.el.current = current
-        } : innerRef || this.el,
+        ref: this.handleRef,
         onInput: this.emitChange,
         onBlur: this.props.onBlur || this.emitChange,
         onKeyUp: this.props.onKeyUp || this.emitChange,
@@ -66,17 +68,16 @@ export default class ContentEditable extends React.Component<Props> {
 
   shouldComponentUpdate(nextProps: Props): boolean {
     const { props } = this;
-    const el = this.getEl();
 
     // We need not rerender if the change of props simply reflects the user's edits.
     // Rerendering in this case would make the cursor/caret jump
 
     // Rerender if there is no element yet... (somehow?)
-    if (!el) return true;
+    if (!this.el) return true;
 
     // ...or if html really changed... (programmatically, not by user edit)
     if (
-      normalizeHtml(nextProps.html) !== normalizeHtml(el.innerHTML)
+      normalizeHtml(nextProps.html) !== normalizeHtml(this.el.innerHTML)
     ) {
       return true;
     }
@@ -90,22 +91,20 @@ export default class ContentEditable extends React.Component<Props> {
   }
 
   componentDidUpdate() {
-    const el = this.getEl();
-    if (!el) return;
+    if (!this.el) return;
 
     // Perhaps React (whose VDOM gets outdated because we often prevent
     // rerendering) did not update the DOM. So we update it manually now.
-    if (this.props.html !== el.innerHTML) {
-      el.innerHTML = this.lastHtml = this.props.html;
+    if (this.props.html !== this.el.innerHTML) {
+      this.el.innerHTML = this.lastHtml = this.props.html;
     }
-    replaceCaret(el);
+    replaceCaret(this.el);
   }
 
   emitChange = (originalEvt: React.SyntheticEvent<any>) => {
-    const el = this.getEl();
-    if (!el) return;
+    if (!this.el) return;
 
-    const html = el.innerHTML;
+    const html = this.el.innerHTML;
     if (this.props.onChange && html !== this.lastHtml) {
       // Clone event with Object.assign to avoid
       // "Cannot assign to read only property 'target' of object"
@@ -143,5 +142,5 @@ export interface Props extends DivProps {
   tagName?: string,
   className?: string,
   style?: Object,
-  innerRef?: React.RefObject<HTMLElement> | Function,
+  innerRef?: Function,
 }

@@ -9,14 +9,14 @@ type RCEvent = { target: { value: string } };
 class EditComponent extends React.Component<Props, State> {
   history: RCEvent[];
   changeCallback: (_: any) => void;
-  el: React.RefObject<HTMLElement>;
+  el: null | HTMLElement;
 
   constructor() {
     super({ useInnerRef: false });
     this.state = { html: "", props: {} };
     this.history = [];
     this.changeCallback = _ => { };
-    this.el = React.createRef();
+    this.el = null;
   }
 
   getHtml = () => this.state.html;
@@ -25,6 +25,10 @@ class EditComponent extends React.Component<Props, State> {
   setChangeCallback = (cb: Function) => this.changeCallback = cb.bind(this);
 
   setProps = (props: Props) => this.setState({ props });
+
+  handleRef = (el: HTMLElement) => {
+    this.el = el;
+  }
 
   handleChange = (evt: RCEvent) => {
     this.history.push(evt);
@@ -38,7 +42,7 @@ class EditComponent extends React.Component<Props, State> {
       style={{ "height": "300px", "border": "1px dashed" }}
       html={this.state.html}
       onChange={this.handleChange}
-      innerRef={this.props.useInnerRef ? this.el : undefined}
+      innerRef={this.props.useInnerRef ? this.handleRef : undefined}
       {...this.state.props}
     />;
   };
