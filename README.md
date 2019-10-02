@@ -24,9 +24,13 @@ import ContentEditable from 'react-contenteditable'
 class MyComponent extends React.Component {
   constructor() {
     super()
-    this.contentEditable = React.createRef();
+    this.contentEditable = null;
     this.state = {html: "<b>Hello <i>World</i></b>"};
   };
+
+  handleRef = (el) => {
+    this.contentEditable = el;
+  }
 
   handleChange = evt => {
     this.setState({html: evt.target.value});
@@ -34,7 +38,7 @@ class MyComponent extends React.Component {
 
   render = () => {
     return <ContentEditable
-              innerRef={this.contentEditable}
+              innerRef={this.handleRef}
               html={this.state.html} // innerHTML of the editable div
               disabled={false}       // use true to disable editing
               onChange={this.handleChange} // handle innerHTML change
@@ -47,7 +51,7 @@ class MyComponent extends React.Component {
 ## Available props
 |prop|description|type|
 |--|----|----|
-|innerRef|element's [`ref` attribute](https://reactjs.org/docs/refs-and-the-dom.html)|Object \| Function|
+|element's [`ref` attribute](https://react-legacy.netlify.com/docs/refs-and-the-dom.html)|Function|
 |html|**required:** innerHTML of the editable element|String|
 |disabled|use true to disable editing|Boolean|
 |onChange|called whenever `innerHTML` changes|Function|

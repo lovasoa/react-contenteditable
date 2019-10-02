@@ -15,9 +15,9 @@
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.4",
     "ajv": "^6.10.2",
-    "react": "^16.8.6",
+    "react": "^15.6.2",
     "react-contenteditable": "file:../",
-    "react-dom": "^16.8.6",
+    "react-dom": "^15.6.2",
     "react-scripts": "^3.0.1",
     "typescript": "3.4.5"
   },
