@@ -6,19 +6,10 @@ function normalizeHtml(str: string): string {
   return str && str.replace(/&nbsp;|\u202F|\u00A0/g, ' ');
 }
 
-function findLastTextNode(node: Node): Node | null {
-  if (node.nodeType === Node.TEXT_NODE) return node;
-  let children = node.childNodes;
-  for (let i = children.length - 1; i >= 0; i--) {
-    let textNode = findLastTextNode(children[i]);
-    if (textNode !== null) return textNode;
-  }
-  return null;
-}
-
 function replaceCaret(el: HTMLElement) {
   // Place the caret at the end of the element
-  const target = findLastTextNode(el);
+  const target = document.createTextNode('');
+  el.appendChild(target);
   // do not move caret if element was not focused
   const isTargetFocused = document.activeElement === el;
   if (target !== null && target.nodeValue !== null && isTargetFocused) {
