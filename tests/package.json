@@ -10,19 +10,19 @@
     "url": "https://github.com/lovasoa/react-contenteditable.git"
   },
   "dependencies": {
-    "@types/jest": "^24.0.15",
-    "@types/node": "^12.6.8",
-    "@types/react": "^16.8.23",
-    "@types/react-dom": "^16.8.4",
+    "@types/jest": "^24.0.23",
+    "@types/node": "^12.12.17",
+    "@types/react": "^16.9.16",
+    "@types/react-dom": "^16.9.4",
     "ajv": "^6.10.2",
-    "react": "^16.8.6",
+    "react": "^16.12.0",
     "react-contenteditable": "file:../",
-    "react-dom": "^16.8.6",
-    "react-scripts": "^3.0.1",
+    "react-dom": "^16.12.0",
+    "react-scripts": "^3.3.0",
     "typescript": "3.4.5"
   },
   "devDependencies": {
-    "puppeteer": "^1.18.1"
+    "puppeteer": "^1.20.0"
   },
   "scripts": {
     "start": "react-scripts start",

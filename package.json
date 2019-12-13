@@ -21,9 +21,9 @@
     "url": "https://github.com/lovasoa/react-contenteditable.git"
   },
   "devDependencies": {
-    "@types/react": "^16.8.23",
-    "react": "^16.8.6",
-    "typescript": "^3.5.3"
+    "@types/react": "^16.9.16",
+    "react": "^16.12.0",
+    "typescript": "^3.7.3"
   },
   "scripts": {
     "compile": "tsc",
