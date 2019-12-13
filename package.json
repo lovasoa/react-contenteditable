@@ -1,6 +1,6 @@
 {
   "name": "react-contenteditable",
-  "version": "3.3.2",
+  "version": "3.3.3",
   "description": "React component representing an element with editable contents",
   "main": "./lib/react-contenteditable.js",
   "types": "./lib/react-contenteditable.d.ts",
