@@ -58,7 +58,21 @@ class MyComponent extends React.Component {
 |style|a collection of CSS properties to apply to the element|Object|
 
 ## Known Issues
-If you are using hooks, please see [this issue](https://github.com/lovasoa/react-contenteditable/issues/161)!
+If you are using hooks, please see [this issue](https://github.com/lovasoa/react-contenteditable/issues/161). Using this component with [`useState`](https://reactjs.org/docs/hooks-reference.html#usestate) doesn't work, but you can still use [`useRef`](https://reactjs.org/docs/hooks-reference.html#useref) : 
+
+```js
+const text = useRef('');
+
+const handleChange = evt => {
+    text.current = evt.target.value;
+};
+
+const handleBlur = () => {
+    console.log(text.current);
+};
+
+return <ContentEditable html={text.current} onBlur={handleBlur} onChange={handleChange} />
+```
 
 ## Examples
 
