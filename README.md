@@ -57,6 +57,8 @@ class MyComponent extends React.Component {
 |className|the element's [CSS class](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class)|String|
 |style|a collection of CSS properties to apply to the element|Object|
 
+## Known Issues
+If you are using hooks, please see [this issue](https://github.com/lovasoa/react-contenteditable/issues/161)!
 
 ## Examples
 
