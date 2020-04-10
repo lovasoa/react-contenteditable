@@ -87,8 +87,9 @@ export default class ContentEditable extends React.Component<Props> {
     // Perhaps React (whose VDOM gets outdated because we often prevent
     // rerendering) did not update the DOM. So we update it manually now.
     if (this.props.html !== el.innerHTML) {
-      el.innerHTML = this.lastHtml = this.props.html;
+      el.innerHTML = this.props.html;
     }
+    this.lastHtml = this.props.html;
     replaceCaret(el);
   }
 
