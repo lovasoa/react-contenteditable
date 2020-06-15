@@ -52,6 +52,7 @@ class MyComponent extends React.Component {
 |disabled|use true to disable editing|Boolean|
 |onChange|called whenever `innerHTML` changes|Function|
 |onBlur|called whenever the html element is [blurred](https://developer.mozilla.org/en-US/docs/Web/Events/blur)|Function|
+|onFocus|event fires when an element has received [focus](https://developer.mozilla.org/en-US/docs/Web/API/Element/focus_event)|Function|
 |onKeyUp|called whenever a key is released|Function|
 |onKeyDown|called whenever a key is pressed |Function|
 |className|the element's [CSS class](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class)|String|
