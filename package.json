@@ -8,7 +8,7 @@
     "react": ">=16.3"
   },
   "author": "Ophir LOJKINE (original code posted by Sebastien Lorber on stackoverflow)",
-  "license": " Apache-2.0",
+  "license": "Apache-2.0",
   "keywords": [
     "react-component",
     "contenteditable",
