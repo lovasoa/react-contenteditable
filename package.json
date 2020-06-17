@@ -1,6 +1,6 @@
 {
   "name": "react-contenteditable",
-  "version": "3.3.3",
+  "version": "3.3.5",
   "description": "React component representing an element with editable contents",
   "main": "./lib/react-contenteditable.js",
   "types": "./lib/react-contenteditable.d.ts",
@@ -21,9 +21,9 @@
     "url": "https://github.com/lovasoa/react-contenteditable.git"
   },
   "devDependencies": {
-    "@types/react": "^16.9.31",
+    "@types/react": "^16.9.37",
     "react": "^16.13.1",
-    "typescript": "^3.8.3"
+    "typescript": "^3.9.5"
   },
   "scripts": {
     "compile": "tsc",
