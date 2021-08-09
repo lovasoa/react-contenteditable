@@ -77,6 +77,7 @@ export default class ContentEditable extends React.Component<Props> {
       props.tagName !== nextProps.tagName ||
       props.className !== nextProps.className ||
       props.innerRef !== nextProps.innerRef ||
+      props.placeholder !== nextProps.placeholder ||
       !deepEqual(props.style, nextProps.style);
   }
 
