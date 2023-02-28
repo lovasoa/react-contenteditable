@@ -105,7 +105,7 @@ for (let useInnerRef of [false, true]) {
     beforeAll(async () => {
       browser = await puppeteer.launch();
       page = await browser.newPage();
-    });
+    }, 10000);
 
     afterAll(async () => {
       browser.close();
