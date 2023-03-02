@@ -37,6 +37,14 @@ export default class ContentEditable extends React.Component<Props> {
   render() {
     const { tagName, html, innerRef, ...props } = this.props;
 
+    let contentEditable = this.props.contentEditable === undefined
+        ? true
+        : this.props.contentEditable;
+
+    if (this.props.disabled === true) {
+      contentEditable = false;
+    }
+
     return React.createElement(
       tagName || 'div',
       {
@@ -49,7 +57,7 @@ export default class ContentEditable extends React.Component<Props> {
         onBlur: this.props.onBlur || this.emitChange,
         onKeyUp: this.props.onKeyUp || this.emitChange,
         onKeyDown: this.props.onKeyDown || this.emitChange,
-        contentEditable: !this.props.disabled,
+        contentEditable,
         dangerouslySetInnerHTML: { __html: html }
       },
       this.props.children);
@@ -113,6 +121,14 @@ export default class ContentEditable extends React.Component<Props> {
   }
 
   static propTypes = {
+    contentEditable: PropTypes.oneOf([
+      "events",
+      "caret",
+      "typing",
+      "plaintext-only",
+      true,
+      false
+    ]),
     html: PropTypes.string.isRequired,
     onChange: PropTypes.func,
     disabled: PropTypes.bool,
